@@ -9,18 +9,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      showsql: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/subway_monitor?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/subway_monitor?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&allowPublicKeyRetrieval=true
     username: root
     password: password
 
-  jwt:
-    secret: "*9L@18aCZ-Mo;kjde6?<1R$IUFR%C>G-"
+jwt:
+  secret: "*9L@18aCZ-Mo;kjde6?<1R$IUFR%C>G-"
 
 server:
-  servlet:
-    context-path: /monitor/v1
   port: 8080
 
 logging:

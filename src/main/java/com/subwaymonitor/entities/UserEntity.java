@@ -5,17 +5,17 @@ import com.subwaymonitor.models.User;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", catalog = "subway_monitor")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "username", unique = true, nullable = false, updatable = false)
     private String username;
 
-    @Column
+    @Column(name = "password", nullable = false)
     private String password;
 
     public UserEntity() {
@@ -60,4 +60,5 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

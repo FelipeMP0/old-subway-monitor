@@ -1,4 +1,4 @@
-package com.subwaymonitor.config;
+package com.subwaymonitor.config.security;
 
 import com.subwaymonitor.services.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -33,7 +33,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
 
         String username = null;
@@ -43,7 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             token = authorization.substring(7);
 
             try {
-                username = jwtTokenUtil.getUsernameFromToken(token);
+                username = this.jwtTokenUtil.getUsernameFromToken(token);
             } catch (IllegalArgumentException e) {
                 this.logger.error("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
@@ -56,7 +57,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userService.loadUserByUsername(username);
 
-            if (jwtTokenUtil.validateToken(token, userDetails)) {
+            if (this.jwtTokenUtil.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
@@ -69,4 +70,5 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
 }

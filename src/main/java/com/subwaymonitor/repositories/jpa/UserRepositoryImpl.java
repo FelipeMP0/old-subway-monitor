@@ -26,9 +26,10 @@ public class UserRepositoryImpl implements UserRepository {
         String query = "FROM UserEntity WHERE username = :username";
 
         UserEntity userEntity = this.entityManager.createQuery(query, UserEntity.class)
-                .setParameter("username", username)
-                .getSingleResult();
+                                                  .setParameter("username", username)
+                                                  .getSingleResult();
 
         return userEntity.convert();
     }
+
 }

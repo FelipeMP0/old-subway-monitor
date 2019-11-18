@@ -11,4 +11,5 @@ public class JwtResponse {
     public String getToken() {
         return token;
     }
+
 }

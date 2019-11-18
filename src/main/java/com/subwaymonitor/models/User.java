@@ -11,10 +11,10 @@ public class User {
     @JsonIgnore
     private Integer id;
 
-    @NotBlank(message = "")
+    @NotBlank(message = "{user.username.required}")
     private String username;
 
-    @NotBlank(message = "")
+    @NotBlank(message = "{user.password.required}")
     private String password;
 
     public Integer getId() {
@@ -40,4 +40,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

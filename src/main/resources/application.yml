@@ -8,7 +8,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       dialect: org.hibernate.dialect.MySQL5Dialect
       showsql: true
 
@@ -16,6 +16,7 @@ spring:
     url: jdbc:mysql://localhost:3306/subway_monitor?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&allowPublicKeyRetrieval=true
     username: root
     password: password
+    initialization-mode: always
 
 jwt:
   secret: "*9L@18aCZ-Mo;kjde6?<1R$IUFR%C>G-"

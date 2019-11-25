@@ -82,11 +82,15 @@ public class MonitorService {
 
     private void addIntoList(List<LineCurrentStatus> lineCurrentStatuses, List<LineStatus> lineStatuses) throws NotFoundException {
         for (LineCurrentStatus lineCurrentStatus : lineCurrentStatuses) {
+            Integer lastVerificationNumber = this.lineStatusService.findLastVerification();
+
             Line line = this.lineRepository.findByNumber(lineCurrentStatus.getLineNumber());
 
             Status status = this.statusRepository.findBySlug(lineCurrentStatus.getStatus());
 
             LineStatus lineStatus = new LineStatus(line, status);
+
+            lineStatus.setVerificationNumber(lastVerificationNumber + 1);
 
             lineStatuses.add(lineStatus);
         }
@@ -99,8 +103,8 @@ public class MonitorService {
         }
     }
 
-    public synchronized void setPauseFlag(boolean pausado, String text) {
-        this.pauseFlag = pausado;
+    public synchronized void setPauseFlag(boolean pause, String text) {
+        this.pauseFlag = pause;
 
         if (!this.pauseFlag) {
             System.out.println(text + " - NOVA EXECUÇÃO: Arquivo disponível");

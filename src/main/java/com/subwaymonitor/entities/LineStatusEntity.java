@@ -23,6 +23,10 @@ public class LineStatusEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private StatusEntity status;
 
+    @Column(name = "verification_number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer verificationNumber;
+
     @Column(name = "creation_date", nullable = false, updatable = false)
     private ZonedDateTime creationDate;
 
@@ -44,6 +48,7 @@ public class LineStatusEntity {
                 this.status = new StatusEntity(lineStatus.getStatus());
             }
 
+            this.verificationNumber = lineStatus.getVerificationNumber();
             this.creationDate = lineStatus.getCreationDate();
             this.updateDate = lineStatus.getUpdateDate();
         }
@@ -62,6 +67,7 @@ public class LineStatusEntity {
             lineStatus.setStatus(this.status.convert());
         }
 
+        lineStatus.setVerificationNumber(this.verificationNumber);
         lineStatus.setCreationDate(this.creationDate);
         lineStatus.setUpdateDate(this.updateDate);
 
@@ -90,6 +96,14 @@ public class LineStatusEntity {
 
     public void setStatus(StatusEntity status) {
         this.status = status;
+    }
+
+    public Integer getVerificationNumber() {
+        return verificationNumber;
+    }
+
+    public void setVerificationNumber(Integer verificationNumber) {
+        this.verificationNumber = verificationNumber;
     }
 
     public ZonedDateTime getCreationDate() {

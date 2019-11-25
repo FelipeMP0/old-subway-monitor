@@ -13,6 +13,8 @@ public class LineStatus {
 
     private Status status;
 
+    private Integer verificationNumber;
+
     private ZonedDateTime creationDate;
 
     private ZonedDateTime updateDate;
@@ -51,6 +53,14 @@ public class LineStatus {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Integer getVerificationNumber() {
+        return verificationNumber;
+    }
+
+    public void setVerificationNumber(Integer verificationNumber) {
+        this.verificationNumber = verificationNumber;
     }
 
     public ZonedDateTime getCreationDate() {

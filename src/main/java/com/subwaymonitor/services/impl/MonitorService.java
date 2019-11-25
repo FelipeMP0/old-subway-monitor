@@ -1,5 +1,8 @@
 package com.subwaymonitor.services.impl;
 
+import com.subwaymonitor.callables.CptmLinesCallable;
+import com.subwaymonitor.callables.MetroLinesCallable;
+import com.subwaymonitor.callables.PrivateLinesCallable;
 import com.subwaymonitor.exceptions.NotFoundException;
 import com.subwaymonitor.models.Line;
 import com.subwaymonitor.models.LineStatus;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 @Service
 public class MonitorService {
@@ -25,6 +29,8 @@ public class MonitorService {
     private final LinesService metroLinesService;
     private final LinesService cptmLinesService;
     private final StatusRepository statusRepository;
+
+    private boolean pauseFlag = false;
 
     @Autowired
     public MonitorService(LineStatusService lineStatusService,
@@ -41,34 +47,37 @@ public class MonitorService {
         this.statusRepository = statusRepository;
     }
 
-    public void importAndSaveData() throws NotFoundException {
+    public void importAndSaveData() throws NotFoundException, InterruptedException, ExecutionException {
         List<LineStatus> lineStatuses = new ArrayList<>();
 
-        this.executeForCptmLines(lineStatuses);
+        ExecutorService threadPool = Executors.newFixedThreadPool(3);
 
-        this.executeForPrivateLines(lineStatuses);
+        Callable<List<LineCurrentStatus>> cptmCallable = new CptmLinesCallable(this.cptmLinesService, this);
 
-        this.executeForMetroLines(lineStatuses);
+        Callable<List<LineCurrentStatus>> metroCallable = new MetroLinesCallable(this.metroLinesService, this);
+
+        Callable<List<LineCurrentStatus>> privateCallable = new PrivateLinesCallable(this.privateLinesService, this);
+
+        Future<List<LineCurrentStatus>> cptmThread = threadPool.submit(cptmCallable);
+
+        Future<List<LineCurrentStatus>> metroThread = threadPool.submit(metroCallable);
+
+        Future<List<LineCurrentStatus>> privateThread = threadPool.submit(privateCallable);
+
+        while (!cptmThread.isDone() && !metroThread.isDone() && !privateThread.isDone()) {
+            System.out.println("BUSCA POR INFORMAÇÕES AINDA EM EXECUÇÃO");
+            Thread.sleep(1000);
+        }
+
+        List<LineCurrentStatus> cptmLinesCurrentStatus = cptmThread.get();
+        List<LineCurrentStatus> metroLinesCurrentStatus = metroThread.get();
+        List<LineCurrentStatus> privateLinesCurrentStatus = privateThread.get();
+
+        this.addIntoList(cptmLinesCurrentStatus, lineStatuses);
+        this.addIntoList(metroLinesCurrentStatus, lineStatuses);
+        this.addIntoList(privateLinesCurrentStatus, lineStatuses);
 
         lineStatuses.forEach(this.lineStatusService::save);
-    }
-
-    private void executeForMetroLines(List<LineStatus> lineStatuses) throws NotFoundException {
-        List<LineCurrentStatus> lineCurrentStatuses = this.metroLinesService.findStatuses();
-
-        this.addIntoList(lineCurrentStatuses, lineStatuses);
-    }
-
-    private void executeForPrivateLines(List<LineStatus> lineStatuses) throws NotFoundException {
-        List<LineCurrentStatus> lineCurrentStatuses = this.privateLinesService.findStatuses();
-
-        this.addIntoList(lineCurrentStatuses, lineStatuses);
-    }
-
-    private void executeForCptmLines(List<LineStatus> lineStatuses) throws NotFoundException {
-        List<LineCurrentStatus> lineCurrentStatuses = this.cptmLinesService.findStatuses();
-
-        this.addIntoList(lineCurrentStatuses, lineStatuses);
     }
 
     private void addIntoList(List<LineCurrentStatus> lineCurrentStatuses, List<LineStatus> lineStatuses) throws NotFoundException {
@@ -80,6 +89,24 @@ public class MonitorService {
             LineStatus lineStatus = new LineStatus(line, status);
 
             lineStatuses.add(lineStatus);
+        }
+    }
+
+    public synchronized void verifyPauseFlag(String text) throws InterruptedException {
+        while (pauseFlag) {
+            System.out.println(text + " - EXECUÇÃO PAUSADA: Arquivo não disponível");
+            wait();
+        }
+    }
+
+    public synchronized void setPauseFlag(boolean pausado, String text) {
+        this.pauseFlag = pausado;
+
+        if (!this.pauseFlag) {
+            System.out.println(text + " - NOVA EXECUÇÃO: Arquivo disponível");
+            notifyAll();
+        } else {
+            System.out.println(text + " - está usando o arquivo");
         }
     }
 

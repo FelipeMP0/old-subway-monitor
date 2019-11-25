@@ -36,6 +36,7 @@ public class MetroLinesServiceImpl implements LinesService {
 
     @Override
     public List<LineCurrentStatus> findStatuses() {
+        System.out.println("BUSCA POR INFORMAÇÕES DAS LINHAS DO METRÔ INICIADA");
         URI uri = UriComponentsBuilder
                 .fromHttpUrl(this.metroConfigProperties.getLineStatusUrl())
                 .path("/generic/Main/LineStatus")

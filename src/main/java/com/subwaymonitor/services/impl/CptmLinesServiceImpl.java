@@ -42,7 +42,7 @@ public class CptmLinesServiceImpl implements LinesService {
     }
 
     private LineCurrentStatus findLine11Information(WebDriver driver) {
-        WebElement lineNumberElement = driver.findElement(By.className("linha-cor-esmeralda"));
+        WebElement lineNumberElement = driver.findElement(By.className("linha-cor-coral"));
 
         WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
                 "return arguments[0].parentNode;", lineNumberElement);
@@ -54,7 +54,7 @@ public class CptmLinesServiceImpl implements LinesService {
     }
 
     private LineCurrentStatus findLine9Information(WebDriver driver) {
-        WebElement lineNumberElement = driver.findElement(By.className("linha-cor-coral"));
+        WebElement lineNumberElement = driver.findElement(By.className("linha-cor-esmeralda"));
 
         WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
                 "return arguments[0].parentNode;", lineNumberElement);

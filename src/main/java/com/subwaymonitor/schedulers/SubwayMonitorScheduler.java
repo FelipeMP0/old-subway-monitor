@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ExecutionException;
+
 @Component
 public class SubwayMonitorScheduler {
 
@@ -19,7 +21,7 @@ public class SubwayMonitorScheduler {
     }
 
     @Scheduled(fixedRate = THREE_MINUTES)
-    public void monitor() throws NotFoundException {
+    public void monitor() throws NotFoundException, ExecutionException, InterruptedException {
         this.monitorService.importAndSaveData();
     }
 

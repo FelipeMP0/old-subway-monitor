@@ -1,8 +1,12 @@
 package com.subwaymonitor.entities;
 
+import com.subwaymonitor.models.Company;
+import org.springframework.util.CollectionUtils;
+
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
 
@@ -27,6 +31,33 @@ public class CompanyEntity {
     private ZonedDateTime updateDate;
 
     public CompanyEntity() {
+    }
+
+    public CompanyEntity(Company company) {
+        if (company != null) {
+            this.id = company.getId();
+            this.name = company.getName();
+
+            if (!CollectionUtils.isEmpty(company.getLines())) {
+                this.lines = company.getLines().stream().map(LineEntity::new).collect(Collectors.toSet());
+                ;
+                this.lines.forEach(lineEntity -> lineEntity.setCompany(this));
+            }
+
+            this.creationDate = company.getCreationDate();
+            this.updateDate = company.getUpdateDate();
+        }
+    }
+
+    public Company convert() {
+        Company company = new Company();
+
+        company.setId(this.id);
+        company.setName(this.name);
+        company.setCreationDate(this.creationDate);
+        company.setUpdateDate(this.updateDate);
+
+        return company;
     }
 
     public Integer getId() {

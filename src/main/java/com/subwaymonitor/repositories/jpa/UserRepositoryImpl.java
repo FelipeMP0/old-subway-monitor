@@ -1,6 +1,7 @@
 package com.subwaymonitor.repositories.jpa;
 
 import com.subwaymonitor.entities.UserEntity;
+import com.subwaymonitor.exceptions.DatabaseException;
 import com.subwaymonitor.models.User;
 import com.subwaymonitor.repositories.UserRepository;
 import org.springframework.stereotype.Repository;
@@ -16,20 +17,28 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        UserEntity userEntity = new UserEntity(user);
+        try {
+            UserEntity userEntity = new UserEntity(user);
 
-        return this.entityManager.merge(userEntity).convert();
+            return this.entityManager.merge(userEntity).convert();
+        } catch (Exception e) {
+            throw new DatabaseException(e);
+        }
     }
 
     @Override
     public User findByUsername(String username) {
-        String query = "FROM UserEntity WHERE username = :username";
+        try {
+            String query = "FROM UserEntity WHERE username = :username";
 
-        UserEntity userEntity = this.entityManager.createQuery(query, UserEntity.class)
-                                                  .setParameter("username", username)
-                                                  .getSingleResult();
+            UserEntity userEntity = this.entityManager.createQuery(query, UserEntity.class)
+                                                      .setParameter("username", username)
+                                                      .getSingleResult();
 
-        return userEntity.convert();
+            return userEntity.convert();
+        } catch (Exception e) {
+            throw new DatabaseException(e);
+        }
     }
 
 }

@@ -21,6 +21,9 @@ spring:
 jwt:
   secret: "*9L@18aCZ-Mo;kjde6?<1R$IUFR%C>G-"
 
+metro:
+  lineStatusUrl: http://www.viaquatro.com.br
+
 server:
   port: 8080
 

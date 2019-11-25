@@ -3,7 +3,7 @@ package com.subwaymonitor.controllers;
 import com.subwaymonitor.models.User;
 import com.subwaymonitor.presenters.JwtResponse;
 import com.subwaymonitor.presenters.UserPresenter;
-import com.subwaymonitor.services.UserService;
+import com.subwaymonitor.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

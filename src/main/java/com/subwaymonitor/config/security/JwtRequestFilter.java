@@ -1,6 +1,6 @@
 package com.subwaymonitor.config.security;
 
-import com.subwaymonitor.services.UserService;
+import com.subwaymonitor.services.impl.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

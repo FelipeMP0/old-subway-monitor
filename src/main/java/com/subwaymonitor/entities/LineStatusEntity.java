@@ -1,7 +1,8 @@
 package com.subwaymonitor.entities;
 
-import javax.persistence.*;
+import com.subwaymonitor.models.LineStatus;
 
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
@@ -29,6 +30,42 @@ public class LineStatusEntity {
     private ZonedDateTime updateDate;
 
     public LineStatusEntity() {
+    }
+
+    public LineStatusEntity(LineStatus lineStatus) {
+        if (lineStatus != null) {
+            this.id = lineStatus.getId();
+
+            if (lineStatus.getLine() != null) {
+                this.line = new LineEntity(lineStatus.getLine());
+            }
+
+            if (lineStatus.getStatus() != null) {
+                this.status = new StatusEntity(lineStatus.getStatus());
+            }
+
+            this.creationDate = lineStatus.getCreationDate();
+            this.updateDate = lineStatus.getUpdateDate();
+        }
+    }
+
+    public LineStatus convert() {
+        LineStatus lineStatus = new LineStatus();
+
+        lineStatus.setId(this.id);
+
+        if (this.line != null) {
+            lineStatus.setLine(this.line.convert());
+        }
+
+        if (this.status != null) {
+            lineStatus.setStatus(this.status.convert());
+        }
+
+        lineStatus.setCreationDate(this.creationDate);
+        lineStatus.setUpdateDate(this.updateDate);
+
+        return lineStatus;
     }
 
     public Integer getId() {

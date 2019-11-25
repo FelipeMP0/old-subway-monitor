@@ -1,4 +1,4 @@
-package com.subwaymonitor.services;
+package com.subwaymonitor.services.impl;
 
 import com.subwaymonitor.config.security.JwtTokenUtil;
 import com.subwaymonitor.models.User;

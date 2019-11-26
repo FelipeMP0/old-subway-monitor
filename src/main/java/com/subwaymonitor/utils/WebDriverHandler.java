@@ -29,7 +29,7 @@ public class WebDriverHandler {
     }
 
     private String getChromeDriverPath() {
-        return "/home/felipepena/Documents/test/subway-monitor/build/resources/main/chromedriver";
+        return "./chromedriver";
     }
 
     public WebDriver getDriver() {

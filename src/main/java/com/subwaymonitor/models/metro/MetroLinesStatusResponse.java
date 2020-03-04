@@ -6,15 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MetroLinesStatusResponse {
 
-    @JsonProperty("StatusMetro")
-    private StatusMetro statusMetro;
+  @JsonProperty("StatusMetro")
+  private StatusMetro statusMetro;
 
-    public StatusMetro getStatusMetro() {
-        return statusMetro;
-    }
+  public StatusMetro getStatusMetro() {
+    return statusMetro;
+  }
 
-    public void setStatusMetro(StatusMetro statusMetro) {
-        this.statusMetro = statusMetro;
-    }
-
+  public void setStatusMetro(StatusMetro statusMetro) {
+    this.statusMetro = statusMetro;
+  }
 }

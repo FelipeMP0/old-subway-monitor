@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface LinesService {
 
-    List<LineCurrentStatus> findStatuses() throws NotFoundException;
-
+  List<LineCurrentStatus> findStatuses() throws NotFoundException;
 }

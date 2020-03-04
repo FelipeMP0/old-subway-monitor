@@ -11,115 +11,113 @@ import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
 @Table(name = "line_status", catalog = SUBWAY_MONITOR)
 public class LineStatusEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @JoinColumn(name = "id_line")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private LineEntity line;
+  @JoinColumn(name = "id_line")
+  @ManyToOne(fetch = FetchType.LAZY)
+  private LineEntity line;
 
-    @JoinColumn(name = "id_status")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private StatusEntity status;
+  @JoinColumn(name = "id_status")
+  @ManyToOne(fetch = FetchType.LAZY)
+  private StatusEntity status;
 
-    @Column(name = "verification_number")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer verificationNumber;
+  @Column(name = "verification_number")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer verificationNumber;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private ZonedDateTime creationDate;
+  @Column(name = "creation_date", nullable = false, updatable = false)
+  private ZonedDateTime creationDate;
 
-    @Column(name = "update_date", nullable = false)
-    private ZonedDateTime updateDate;
+  @Column(name = "update_date", nullable = false)
+  private ZonedDateTime updateDate;
 
-    public LineStatusEntity() {
+  public LineStatusEntity() {}
+
+  public LineStatusEntity(LineStatus lineStatus) {
+    if (lineStatus != null) {
+      this.id = lineStatus.getId();
+
+      if (lineStatus.getLine() != null) {
+        this.line = new LineEntity(lineStatus.getLine());
+      }
+
+      if (lineStatus.getStatus() != null) {
+        this.status = new StatusEntity(lineStatus.getStatus());
+      }
+
+      this.verificationNumber = lineStatus.getVerificationNumber();
+      this.creationDate = lineStatus.getCreationDate();
+      this.updateDate = lineStatus.getUpdateDate();
+    }
+  }
+
+  public LineStatus convert() {
+    LineStatus lineStatus = new LineStatus();
+
+    lineStatus.setId(this.id);
+
+    if (this.line != null) {
+      lineStatus.setLine(this.line.convert());
     }
 
-    public LineStatusEntity(LineStatus lineStatus) {
-        if (lineStatus != null) {
-            this.id = lineStatus.getId();
-
-            if (lineStatus.getLine() != null) {
-                this.line = new LineEntity(lineStatus.getLine());
-            }
-
-            if (lineStatus.getStatus() != null) {
-                this.status = new StatusEntity(lineStatus.getStatus());
-            }
-
-            this.verificationNumber = lineStatus.getVerificationNumber();
-            this.creationDate = lineStatus.getCreationDate();
-            this.updateDate = lineStatus.getUpdateDate();
-        }
+    if (this.status != null) {
+      lineStatus.setStatus(this.status.convert());
     }
 
-    public LineStatus convert() {
-        LineStatus lineStatus = new LineStatus();
+    lineStatus.setVerificationNumber(this.verificationNumber);
+    lineStatus.setCreationDate(this.creationDate);
+    lineStatus.setUpdateDate(this.updateDate);
 
-        lineStatus.setId(this.id);
+    return lineStatus;
+  }
 
-        if (this.line != null) {
-            lineStatus.setLine(this.line.convert());
-        }
+  public Integer getId() {
+    return id;
+  }
 
-        if (this.status != null) {
-            lineStatus.setStatus(this.status.convert());
-        }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-        lineStatus.setVerificationNumber(this.verificationNumber);
-        lineStatus.setCreationDate(this.creationDate);
-        lineStatus.setUpdateDate(this.updateDate);
+  public LineEntity getLine() {
+    return line;
+  }
 
-        return lineStatus;
-    }
+  public void setLine(LineEntity line) {
+    this.line = line;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public StatusEntity getStatus() {
+    return status;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setStatus(StatusEntity status) {
+    this.status = status;
+  }
 
-    public LineEntity getLine() {
-        return line;
-    }
+  public Integer getVerificationNumber() {
+    return verificationNumber;
+  }
 
-    public void setLine(LineEntity line) {
-        this.line = line;
-    }
+  public void setVerificationNumber(Integer verificationNumber) {
+    this.verificationNumber = verificationNumber;
+  }
 
-    public StatusEntity getStatus() {
-        return status;
-    }
+  public ZonedDateTime getCreationDate() {
+    return creationDate;
+  }
 
-    public void setStatus(StatusEntity status) {
-        this.status = status;
-    }
+  public void setCreationDate(ZonedDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
 
-    public Integer getVerificationNumber() {
-        return verificationNumber;
-    }
+  public ZonedDateTime getUpdateDate() {
+    return updateDate;
+  }
 
-    public void setVerificationNumber(Integer verificationNumber) {
-        this.verificationNumber = verificationNumber;
-    }
-
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public ZonedDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(ZonedDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
+  public void setUpdateDate(ZonedDateTime updateDate) {
+    this.updateDate = updateDate;
+  }
 }

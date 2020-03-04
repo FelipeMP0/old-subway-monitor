@@ -18,51 +18,58 @@ import java.util.List;
 @Qualifier("cptmLinesService")
 public class CptmLinesServiceImpl implements LinesService {
 
-    private static final String VIA_QUATRO_URL = "https://www.viamobilidade.com.br/";
+  private static final String VIA_QUATRO_URL = "https://www.viamobilidade.com.br/";
 
-    @Override
-    public List<LineCurrentStatus> findStatuses() {
-        WebDriverHandler webDriverHandler = new WebDriverHandler();
+  @Override
+  public List<LineCurrentStatus> findStatuses() {
+    WebDriverHandler webDriverHandler = new WebDriverHandler();
 
-        List<LineCurrentStatus> lineCurrentStatuses = new ArrayList<>();
-        try {
-            webDriverHandler.connect(VIA_QUATRO_URL);
+    List<LineCurrentStatus> lineCurrentStatuses = new ArrayList<>();
+    try {
+      webDriverHandler.connect(VIA_QUATRO_URL);
 
-            LineCurrentStatus line9CurrentStatus = this.findLine9Information(webDriverHandler.getDriver());
+      LineCurrentStatus line9CurrentStatus =
+          this.findLine9Information(webDriverHandler.getDriver());
 
-            LineCurrentStatus line11CurrentStatus = this.findLine11Information(webDriverHandler.getDriver());
+      LineCurrentStatus line11CurrentStatus =
+          this.findLine11Information(webDriverHandler.getDriver());
 
-            lineCurrentStatuses.add(line9CurrentStatus);
-            lineCurrentStatuses.add(line11CurrentStatus);
-        } finally {
-            webDriverHandler.disconnect();
-        }
-
-        return lineCurrentStatuses;
+      lineCurrentStatuses.add(line9CurrentStatus);
+      lineCurrentStatuses.add(line11CurrentStatus);
+    } finally {
+      webDriverHandler.disconnect();
     }
 
-    private LineCurrentStatus findLine11Information(WebDriver driver) {
-        WebElement lineNumberElement = driver.findElement(By.className("linha-cor-coral"));
+    return lineCurrentStatuses;
+  }
 
-        WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
-                "return arguments[0].parentNode;", lineNumberElement);
+  private LineCurrentStatus findLine11Information(WebDriver driver) {
+    WebElement lineNumberElement = driver.findElement(By.className("linha-cor-coral"));
 
-        String lineNumber = lineNumberElement.getText().trim();
-        String lineStatus = parent.findElement(By.className("text-status")).getText().trim();
+    WebElement parent =
+        (WebElement)
+            ((JavascriptExecutor) driver)
+                .executeScript("return arguments[0].parentNode;", lineNumberElement);
 
-        return new LineCurrentStatus(Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
-    }
+    String lineNumber = lineNumberElement.getText().trim();
+    String lineStatus = parent.findElement(By.className("text-status")).getText().trim();
 
-    private LineCurrentStatus findLine9Information(WebDriver driver) {
-        WebElement lineNumberElement = driver.findElement(By.className("linha-cor-esmeralda"));
+    return new LineCurrentStatus(
+        Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
+  }
 
-        WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
-                "return arguments[0].parentNode;", lineNumberElement);
+  private LineCurrentStatus findLine9Information(WebDriver driver) {
+    WebElement lineNumberElement = driver.findElement(By.className("linha-cor-esmeralda"));
 
-        String lineNumber = lineNumberElement.getText().trim();
-        String lineStatus = parent.findElement(By.className("text-status")).getText().trim();
+    WebElement parent =
+        (WebElement)
+            ((JavascriptExecutor) driver)
+                .executeScript("return arguments[0].parentNode;", lineNumberElement);
 
-        return new LineCurrentStatus(Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
-    }
+    String lineNumber = lineNumberElement.getText().trim();
+    String lineStatus = parent.findElement(By.className("text-status")).getText().trim();
 
+    return new LineCurrentStatus(
+        Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
+  }
 }

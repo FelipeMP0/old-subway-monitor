@@ -1,19 +1,18 @@
 package com.subwaymonitor.presenters;
 
-import com.subwaymonitor.models.User;
+import com.subwaymonitor.models.UserModel;
 
 public class UserPresenter {
 
-    private String username;
+  private String username;
 
-    public UserPresenter(User user) {
-        if (user != null) {
-            this.username = user.getUsername();
-        }
+  public UserPresenter(UserModel userModel) {
+    if (userModel != null) {
+      this.username = userModel.getUsername();
     }
+  }
 
-    public String getUsername() {
-        return username;
-    }
-
+  public String getUsername() {
+    return username;
+  }
 }

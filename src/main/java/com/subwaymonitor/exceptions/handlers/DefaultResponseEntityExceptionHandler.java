@@ -6,11 +6,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 public class DefaultResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @Autowired
-    private ValidationMessagesReader messagesReader;
+  @Autowired private ValidationMessagesReader messagesReader;
 
-    protected String getMessageFromPropertiesFile(String key) {
-        return this.messagesReader.getProperty(key);
-    }
-
+  protected String getMessageFromPropertiesFile(String key) {
+    return this.messagesReader.getProperty(key);
+  }
 }

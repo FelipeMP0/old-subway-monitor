@@ -7,10 +7,9 @@ import java.util.List;
 
 public interface LineStatusRepository {
 
-    LineStatus save(LineStatus lineStatus);
+  LineStatus save(LineStatus lineStatus);
 
-    List<LineStatus> listAllLinesByVerificationNumber(Integer verificationNumber);
+  List<LineStatus> listAllLinesByVerificationNumber(Integer verificationNumber);
 
-    Integer findLastVerification() throws NotFoundException;
-
+  Integer findLastVerification() throws NotFoundException;
 }

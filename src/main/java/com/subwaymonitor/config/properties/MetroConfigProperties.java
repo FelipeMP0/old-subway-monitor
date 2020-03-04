@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "metro")
 public class MetroConfigProperties {
 
-    private String lineStatusUrl;
+  private String lineStatusUrl;
 
-    public String getLineStatusUrl() {
-        return lineStatusUrl;
-    }
+  public String getLineStatusUrl() {
+    return lineStatusUrl;
+  }
 
-    public void setLineStatusUrl(String lineStatusUrl) {
-        this.lineStatusUrl = lineStatusUrl;
-    }
-
+  public void setLineStatusUrl(String lineStatusUrl) {
+    this.lineStatusUrl = lineStatusUrl;
+  }
 }

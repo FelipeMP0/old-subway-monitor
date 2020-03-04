@@ -14,103 +14,101 @@ import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
 @Table(name = "status", catalog = SUBWAY_MONITOR)
 public class StatusEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column(name = "slug", nullable = false)
-    private String slug;
+  @Column(name = "slug", nullable = false)
+  private String slug;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+  @Column(name = "name", nullable = false)
+  private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "status", cascade = CascadeType.ALL)
-    private Set<LineStatusEntity> lineStatus;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "status", cascade = CascadeType.ALL)
+  private Set<LineStatusEntity> lineStatus;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private ZonedDateTime creationDate;
+  @Column(name = "creation_date", nullable = false, updatable = false)
+  private ZonedDateTime creationDate;
 
-    @Column(name = "update_date", nullable = false)
-    private ZonedDateTime updateDate;
+  @Column(name = "update_date", nullable = false)
+  private ZonedDateTime updateDate;
 
-    public StatusEntity() {
+  public StatusEntity() {}
+
+  public StatusEntity(Status status) {
+    if (status != null) {
+      this.id = status.getId();
+      this.slug = status.getSlug();
+      this.name = status.getName();
+
+      if (!CollectionUtils.isEmpty(status.getLineStatus())) {
+        this.lineStatus =
+            status.getLineStatus().stream().map(LineStatusEntity::new).collect(Collectors.toSet());
+        this.lineStatus.forEach(lineStatusEntity -> lineStatusEntity.setStatus(this));
+      }
+
+      this.creationDate = status.getCreationDate();
+      this.updateDate = status.getUpdateDate();
     }
+  }
 
-    public StatusEntity(Status status) {
-        if (status != null) {
-            this.id = status.getId();
-            this.slug = status.getSlug();
-            this.name = status.getName();
+  public Status convert() {
+    Status status = new Status();
 
-            if (!CollectionUtils.isEmpty(status.getLineStatus())) {
-                this.lineStatus
-                        = status.getLineStatus().stream().map(LineStatusEntity::new).collect(Collectors.toSet());
-                this.lineStatus.forEach(lineStatusEntity -> lineStatusEntity.setStatus(this));
-            }
+    status.setId(this.id);
+    status.setSlug(this.slug);
+    status.setName(this.name);
+    status.setCreationDate(this.creationDate);
+    status.setUpdateDate(this.updateDate);
 
-            this.creationDate = status.getCreationDate();
-            this.updateDate = status.getUpdateDate();
-        }
-    }
+    return status;
+  }
 
-    public Status convert() {
-        Status status = new Status();
+  public Integer getId() {
+    return id;
+  }
 
-        status.setId(this.id);
-        status.setSlug(this.slug);
-        status.setName(this.name);
-        status.setCreationDate(this.creationDate);
-        status.setUpdateDate(this.updateDate);
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-        return status;
-    }
+  public String getSlug() {
+    return slug;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getSlug() {
-        return slug;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
+  public Set<LineStatusEntity> getLineStatus() {
+    return lineStatus;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setLineStatus(Set<LineStatusEntity> lineStatus) {
+    this.lineStatus = lineStatus;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public ZonedDateTime getCreationDate() {
+    return creationDate;
+  }
 
-    public Set<LineStatusEntity> getLineStatus() {
-        return lineStatus;
-    }
+  public void setCreationDate(ZonedDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
 
-    public void setLineStatus(Set<LineStatusEntity> lineStatus) {
-        this.lineStatus = lineStatus;
-    }
+  public ZonedDateTime getUpdateDate() {
+    return updateDate;
+  }
 
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public ZonedDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(ZonedDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
+  public void setUpdateDate(ZonedDateTime updateDate) {
+    this.updateDate = updateDate;
+  }
 }

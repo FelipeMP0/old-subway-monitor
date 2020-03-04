@@ -17,51 +17,58 @@ import java.util.List;
 @Qualifier("privateLinesService")
 public class PrivateLinesServiceImpl implements LinesService {
 
-    private static final String VIA_QUATRO_URL = "https://www.viamobilidade.com.br/";
+  private static final String VIA_QUATRO_URL = "https://www.viamobilidade.com.br/";
 
-    @Override
-    public List<LineCurrentStatus> findStatuses() {
-        WebDriverHandler webDriverHandler = new WebDriverHandler();
+  @Override
+  public List<LineCurrentStatus> findStatuses() {
+    WebDriverHandler webDriverHandler = new WebDriverHandler();
 
-        List<LineCurrentStatus> lineCurrentStatuses = new ArrayList<>();
-        try {
-            webDriverHandler.connect(VIA_QUATRO_URL);
+    List<LineCurrentStatus> lineCurrentStatuses = new ArrayList<>();
+    try {
+      webDriverHandler.connect(VIA_QUATRO_URL);
 
-            LineCurrentStatus line4CurrentStatus = this.findLine4Information(webDriverHandler.getDriver());
+      LineCurrentStatus line4CurrentStatus =
+          this.findLine4Information(webDriverHandler.getDriver());
 
-            LineCurrentStatus line5CurrentStatus = this.findLine5Information(webDriverHandler.getDriver());
+      LineCurrentStatus line5CurrentStatus =
+          this.findLine5Information(webDriverHandler.getDriver());
 
-            lineCurrentStatuses.add(line4CurrentStatus);
-            lineCurrentStatuses.add(line5CurrentStatus);
-        } finally {
-            webDriverHandler.disconnect();
-        }
-
-        return lineCurrentStatuses;
+      lineCurrentStatuses.add(line4CurrentStatus);
+      lineCurrentStatuses.add(line5CurrentStatus);
+    } finally {
+      webDriverHandler.disconnect();
     }
 
-    private LineCurrentStatus findLine4Information(WebDriver driver) {
-        WebElement main = driver.findElement(By.className("operacao-home"))
-                                .findElement(By.className("card-group"))
-                                .findElement(By.className("outras-linhas"))
-                                .findElement(By.className("card-body"));
+    return lineCurrentStatuses;
+  }
 
-        String lineNumber = main.findElement(By.className("linha-cor-amarela")).getText().trim();
-        String lineStatus = main.findElement(By.className("text-status")).getText().trim();
+  private LineCurrentStatus findLine4Information(WebDriver driver) {
+    WebElement main =
+        driver
+            .findElement(By.className("operacao-home"))
+            .findElement(By.className("card-group"))
+            .findElement(By.className("outras-linhas"))
+            .findElement(By.className("card-body"));
 
-        return new LineCurrentStatus(Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
-    }
+    String lineNumber = main.findElement(By.className("linha-cor-amarela")).getText().trim();
+    String lineStatus = main.findElement(By.className("text-status")).getText().trim();
 
-    private LineCurrentStatus findLine5Information(WebDriver driver) {
-        WebElement main = driver.findElement(By.className("operacao-home"))
-                                .findElement(By.className("operacao-linhas"))
-                                .findElement(By.tagName("ul"))
-                                .findElement(By.className("linha-cor-lilas"));
+    return new LineCurrentStatus(
+        Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
+  }
 
-        String lineNumber = main.findElement(By.className("badge-linha")).getText().trim();
-        String lineStatus = main.findElement(By.className("badge-status")).getText().trim();
+  private LineCurrentStatus findLine5Information(WebDriver driver) {
+    WebElement main =
+        driver
+            .findElement(By.className("operacao-home"))
+            .findElement(By.className("operacao-linhas"))
+            .findElement(By.tagName("ul"))
+            .findElement(By.className("linha-cor-lilas"));
 
-        return new LineCurrentStatus(Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
-    }
+    String lineNumber = main.findElement(By.className("badge-linha")).getText().trim();
+    String lineStatus = main.findElement(By.className("badge-status")).getText().trim();
 
+    return new LineCurrentStatus(
+        Integer.parseInt(lineNumber), StatusEnum.fromText(lineStatus).name());
+  }
 }

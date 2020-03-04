@@ -15,13 +15,13 @@ import java.util.Arrays;
 @Order(2)
 public class NotFoundExceptionHandler extends DefaultResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {NotFoundException.class})
-    protected ResponseEntity<Object> handleConflict(NotFoundException ex, WebRequest request) {
-        String message = this.getMessageFromPropertiesFile(ex.getMessage());
+  @ExceptionHandler(value = {NotFoundException.class})
+  protected ResponseEntity<Object> handleConflict(NotFoundException ex, WebRequest request) {
+    String message = this.getMessageFromPropertiesFile(ex.getMessage());
 
-        ErrorPresenter error = new ErrorPresenter(ex.getField(), message);
+    ErrorPresenter error = new ErrorPresenter(ex.getField(), message);
 
-        return super.handleExceptionInternal(ex, Arrays.asList(error), new HttpHeaders(), ex.getStatus(), request);
-    }
-
+    return super.handleExceptionInternal(
+        ex, Arrays.asList(error), new HttpHeaders(), ex.getStatus(), request);
+  }
 }

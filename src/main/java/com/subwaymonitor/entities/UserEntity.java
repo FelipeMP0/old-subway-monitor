@@ -1,6 +1,6 @@
 package com.subwaymonitor.entities;
 
-import com.subwaymonitor.models.User;
+import com.subwaymonitor.models.UserModel;
 
 import javax.persistence.*;
 
@@ -8,57 +8,55 @@ import javax.persistence.*;
 @Table(name = "user", catalog = "subway_monitor")
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column(name = "username", unique = true, nullable = false, updatable = false)
-    private String username;
+  @Column(name = "username", unique = true, nullable = false, updatable = false)
+  private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+  @Column(name = "password", nullable = false)
+  private String password;
 
-    public UserEntity() {
-    }
+  public UserEntity() {}
 
-    public UserEntity(User user) {
-        this.id = user.getId();
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-    }
+  public UserEntity(UserModel userModel) {
+    this.id = userModel.getId();
+    this.username = userModel.getUsername();
+    this.password = userModel.getPassword();
+  }
 
-    public User convert() {
-        User user = new User();
+  public UserModel convert() {
+    UserModel userModel = new UserModel();
 
-        user.setId(this.id);
-        user.setUsername(this.username);
-        user.setPassword(this.password);
+    userModel.setId(this.id);
+    userModel.setUsername(this.username);
+    userModel.setPassword(this.password);
 
-        return user;
-    }
+    return userModel;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

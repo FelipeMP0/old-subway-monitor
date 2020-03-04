@@ -12,27 +12,27 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
 
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+  @Bean
+  public MessageSource messageSource() {
+    ReloadableResourceBundleMessageSource messageSource =
+        new ReloadableResourceBundleMessageSource();
 
-        messageSource.setBasename("classpath:ValidationMessages");
-        messageSource.setDefaultEncoding("UTF-8");
+    messageSource.setBasename("classpath:ValidationMessages");
+    messageSource.setDefaultEncoding("UTF-8");
 
-        return messageSource;
-    }
+    return messageSource;
+  }
 
-    @Bean
-    public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+  @Bean
+  public LocalValidatorFactoryBean validator() {
+    LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
 
-        bean.setValidationMessageSource(messageSource());
+    bean.setValidationMessageSource(messageSource());
 
-        return bean;
-    }
-
+    return bean;
+  }
 }

@@ -6,34 +6,33 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class WebDriverHandler {
 
-    private WebDriver driver = null;
+  private WebDriver driver = null;
 
-    public void connect(String url) {
-        String driverPath = this.getChromeDriverPath();
+  public void connect(String url) {
+    String driverPath = this.getChromeDriverPath();
 
-        System.setProperty("webdriver.chrome.driver", driverPath);
+    System.setProperty("webdriver.chrome.driver", driverPath);
 
-        ChromeOptions options = new ChromeOptions();
+    ChromeOptions options = new ChromeOptions();
 
-        options.setHeadless(true);
+    options.setHeadless(true);
 
-        this.driver = new ChromeDriver(options);
+    this.driver = new ChromeDriver(options);
 
-        this.driver.get(url);
+    this.driver.get(url);
+  }
+
+  public void disconnect() {
+    if (this.driver != null) {
+      this.driver.quit();
     }
+  }
 
-    public void disconnect() {
-        if (this.driver != null) {
-            this.driver.quit();
-        }
-    }
+  private String getChromeDriverPath() {
+    return "./chromedriver";
+  }
 
-    private String getChromeDriverPath() {
-        return "./chromedriver";
-    }
-
-    public WebDriver getDriver() {
-        return driver;
-    }
-
+  public WebDriver getDriver() {
+    return driver;
+  }
 }

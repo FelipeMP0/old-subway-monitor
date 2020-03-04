@@ -8,69 +8,68 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Status {
 
-    private Integer id;
+  private Integer id;
 
-    private String slug;
+  private String slug;
 
-    private String name;
+  private String name;
 
-    private Set<LineStatus> lineStatus;
+  private Set<LineStatus> lineStatus;
 
-    private ZonedDateTime creationDate;
+  private ZonedDateTime creationDate;
 
-    private ZonedDateTime updateDate;
+  private ZonedDateTime updateDate;
 
-    public Status() {
-        this.creationDate = ZonedDateTime.now();
-        this.updateDate = ZonedDateTime.now();
-    }
+  public Status() {
+    this.creationDate = ZonedDateTime.now();
+    this.updateDate = ZonedDateTime.now();
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getSlug() {
-        return slug;
-    }
+  public String getSlug() {
+    return slug;
+  }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public Set<LineStatus> getLineStatus() {
-        return lineStatus;
-    }
+  public Set<LineStatus> getLineStatus() {
+    return lineStatus;
+  }
 
-    public void setLineStatus(Set<LineStatus> lineStatus) {
-        this.lineStatus = lineStatus;
-    }
+  public void setLineStatus(Set<LineStatus> lineStatus) {
+    this.lineStatus = lineStatus;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
+  public ZonedDateTime getCreationDate() {
+    return creationDate;
+  }
 
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
+  public void setCreationDate(ZonedDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
 
-    public ZonedDateTime getUpdateDate() {
-        return updateDate;
-    }
+  public ZonedDateTime getUpdateDate() {
+    return updateDate;
+  }
 
-    public void setUpdateDate(ZonedDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
+  public void setUpdateDate(ZonedDateTime updateDate) {
+    this.updateDate = updateDate;
+  }
 }

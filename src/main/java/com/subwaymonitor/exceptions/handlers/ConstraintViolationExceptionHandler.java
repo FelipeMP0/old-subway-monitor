@@ -20,39 +20,38 @@ import java.util.List;
 @ControllerAdvice
 public class ConstraintViolationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private final Logger logger;
+  private final Logger logger;
 
-    public ConstraintViolationExceptionHandler() {
-        this.logger = Logger.getLogger(this.getClass());
+  public ConstraintViolationExceptionHandler() {
+    this.logger = Logger.getLogger(this.getClass());
+  }
+
+  public static ResponseEntity<Object> handleBindingResultErrors(
+      BindingResult bindingResult, HttpHeaders headers, HttpStatus status) {
+    if (bindingResult != null) {
+      List<ErrorPresenter> errors = new ArrayList<>();
+
+      List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+      for (FieldError fieldError : fieldErrors) {
+        errors.add(new ErrorPresenter(fieldError.getField(), fieldError.getDefaultMessage()));
+      }
+
+      return new ResponseEntity<>(errors, headers, status);
     }
 
-    public static ResponseEntity<Object> handleBindingResultErrors(BindingResult bindingResult, HttpHeaders headers,
-                                                                   HttpStatus status) {
-        if (bindingResult != null) {
-            List<ErrorPresenter> errors = new ArrayList<>();
+    return null;
+  }
 
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest request) {
 
-            for (FieldError fieldError : fieldErrors) {
-                errors.add(new ErrorPresenter(fieldError.getField(), fieldError.getDefaultMessage()));
-            }
+    this.logger.error("ConstraintViolationExceptionHandler", ex);
 
-            return new ResponseEntity<>(errors, headers, status);
-        }
-
-        return null;
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex,
-            HttpHeaders headers,
-            HttpStatus status,
-            WebRequest request) {
-
-        this.logger.error("ConstraintViolationExceptionHandler", ex);
-
-        return handleBindingResultErrors(ex.getBindingResult(), headers, status);
-    }
-
+    return handleBindingResultErrors(ex.getBindingResult(), headers, status);
+  }
 }

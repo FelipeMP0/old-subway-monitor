@@ -14,90 +14,88 @@ import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
 @Table(name = "company", catalog = SUBWAY_MONITOR)
 public class CompanyEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+  @Column(name = "name", nullable = false)
+  private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
-    private Set<LineEntity> lines;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
+  private Set<LineEntity> lines;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private ZonedDateTime creationDate;
+  @Column(name = "creation_date", nullable = false, updatable = false)
+  private ZonedDateTime creationDate;
 
-    @Column(name = "update_date", nullable = false)
-    private ZonedDateTime updateDate;
+  @Column(name = "update_date", nullable = false)
+  private ZonedDateTime updateDate;
 
-    public CompanyEntity() {
+  public CompanyEntity() {}
+
+  public CompanyEntity(Company company) {
+    if (company != null) {
+      this.id = company.getId();
+      this.name = company.getName();
+
+      if (!CollectionUtils.isEmpty(company.getLines())) {
+        this.lines = company.getLines().stream().map(LineEntity::new).collect(Collectors.toSet());
+        ;
+        this.lines.forEach(lineEntity -> lineEntity.setCompany(this));
+      }
+
+      this.creationDate = company.getCreationDate();
+      this.updateDate = company.getUpdateDate();
     }
+  }
 
-    public CompanyEntity(Company company) {
-        if (company != null) {
-            this.id = company.getId();
-            this.name = company.getName();
+  public Company convert() {
+    Company company = new Company();
 
-            if (!CollectionUtils.isEmpty(company.getLines())) {
-                this.lines = company.getLines().stream().map(LineEntity::new).collect(Collectors.toSet());
-                ;
-                this.lines.forEach(lineEntity -> lineEntity.setCompany(this));
-            }
+    company.setId(this.id);
+    company.setName(this.name);
+    company.setCreationDate(this.creationDate);
+    company.setUpdateDate(this.updateDate);
 
-            this.creationDate = company.getCreationDate();
-            this.updateDate = company.getUpdateDate();
-        }
-    }
+    return company;
+  }
 
-    public Company convert() {
-        Company company = new Company();
+  public Integer getId() {
+    return id;
+  }
 
-        company.setId(this.id);
-        company.setName(this.name);
-        company.setCreationDate(this.creationDate);
-        company.setUpdateDate(this.updateDate);
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-        return company;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Set<LineEntity> getLines() {
+    return lines;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setLines(Set<LineEntity> lines) {
+    this.lines = lines;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public ZonedDateTime getCreationDate() {
+    return creationDate;
+  }
 
-    public Set<LineEntity> getLines() {
-        return lines;
-    }
+  public void setCreationDate(ZonedDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
 
-    public void setLines(Set<LineEntity> lines) {
-        this.lines = lines;
-    }
+  public ZonedDateTime getUpdateDate() {
+    return updateDate;
+  }
 
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public ZonedDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(ZonedDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
+  public void setUpdateDate(ZonedDateTime updateDate) {
+    this.updateDate = updateDate;
+  }
 }

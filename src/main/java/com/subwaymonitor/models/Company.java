@@ -8,59 +8,58 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Company {
 
-    private Integer id;
+  private Integer id;
 
-    private String name;
+  private String name;
 
-    private Set<Line> lines;
+  private Set<Line> lines;
 
-    private ZonedDateTime creationDate;
+  private ZonedDateTime creationDate;
 
-    private ZonedDateTime updateDate;
+  private ZonedDateTime updateDate;
 
-    public Company() {
-        this.creationDate = ZonedDateTime.now();
-        this.updateDate = ZonedDateTime.now();
-    }
+  public Company() {
+    this.creationDate = ZonedDateTime.now();
+    this.updateDate = ZonedDateTime.now();
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public Set<Line> getLines() {
-        return lines;
-    }
+  public Set<Line> getLines() {
+    return lines;
+  }
 
-    public void setLines(Set<Line> lines) {
-        this.lines = lines;
-    }
+  public void setLines(Set<Line> lines) {
+    this.lines = lines;
+  }
 
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
+  public ZonedDateTime getCreationDate() {
+    return creationDate;
+  }
 
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
+  public void setCreationDate(ZonedDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
 
-    public ZonedDateTime getUpdateDate() {
-        return updateDate;
-    }
+  public ZonedDateTime getUpdateDate() {
+    return updateDate;
+  }
 
-    public void setUpdateDate(ZonedDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
+  public void setUpdateDate(ZonedDateTime updateDate) {
+    this.updateDate = updateDate;
+  }
 }

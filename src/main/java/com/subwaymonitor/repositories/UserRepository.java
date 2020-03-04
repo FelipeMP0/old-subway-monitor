@@ -1,11 +1,10 @@
 package com.subwaymonitor.repositories;
 
-import com.subwaymonitor.models.User;
+import com.subwaymonitor.models.UserModel;
 
 public interface UserRepository {
 
-    User save(User user);
+  UserModel save(UserModel userModel);
 
-    User findByUsername(String username);
-
+  UserModel findByUsername(String username);
 }

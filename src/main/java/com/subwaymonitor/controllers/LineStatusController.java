@@ -18,21 +18,20 @@ import java.util.stream.Collectors;
 @RequestMapping("line-status")
 public class LineStatusController {
 
-    private final LineStatusService service;
+  private final LineStatusService service;
 
-    @Autowired
-    public LineStatusController(LineStatusService service) {
-        this.service = service;
-    }
+  @Autowired
+  public LineStatusController(LineStatusService service) {
+    this.service = service;
+  }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> listAllLines() {
-        List<LineStatus> lineStatuses = this.service.listLastVerificatinForAllLines();
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> listAllLines() {
+    List<LineStatus> lineStatuses = this.service.listLastVerificatinForAllLines();
 
-        List<LineStatusPresenter> lineStatusPresenters
-                = lineStatuses.stream().map(LineStatusPresenter::new).collect(Collectors.toList());
+    List<LineStatusPresenter> lineStatusPresenters =
+        lineStatuses.stream().map(LineStatusPresenter::new).collect(Collectors.toList());
 
-        return new ResponseEntity<>(lineStatusPresenters, HttpStatus.OK);
-    }
-
+    return new ResponseEntity<>(lineStatusPresenters, HttpStatus.OK);
+  }
 }

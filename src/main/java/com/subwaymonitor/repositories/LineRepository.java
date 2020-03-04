@@ -5,6 +5,5 @@ import com.subwaymonitor.models.Line;
 
 public interface LineRepository {
 
-    Line findByNumber(Integer number) throws NotFoundException;
-
+  Line findByNumber(Integer number) throws NotFoundException;
 }

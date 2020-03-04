@@ -6,10 +6,9 @@ import java.util.List;
 
 public interface LineStatusService {
 
-    LineStatus save(LineStatus lineStatus);
+  LineStatus save(LineStatus lineStatus);
 
-    List<LineStatus> listLastVerificatinForAllLines();
+  List<LineStatus> listLastVerificatinForAllLines();
 
-    Integer findLastVerification();
-
+  Integer findLastVerification();
 }

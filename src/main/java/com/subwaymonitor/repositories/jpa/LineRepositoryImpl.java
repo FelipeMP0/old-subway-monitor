@@ -14,24 +14,24 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class LineRepositoryImpl implements LineRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+  @PersistenceContext private EntityManager entityManager;
 
-    @Override
-    public Line findByNumber(Integer number) throws NotFoundException {
-        try {
-            String query = "FROM LineEntity l JOIN FETCH l.company WHERE l.number = :number";
+  @Override
+  public Line findByNumber(Integer number) throws NotFoundException {
+    try {
+      String query = "FROM LineEntity l JOIN FETCH l.company WHERE l.number = :number";
 
-            LineEntity lineEntity = this.entityManager.createQuery(query, LineEntity.class)
-                                                      .setParameter("number", number)
-                                                      .getSingleResult();
+      LineEntity lineEntity =
+          this.entityManager
+              .createQuery(query, LineEntity.class)
+              .setParameter("number", number)
+              .getSingleResult();
 
-            return lineEntity.convert();
-        } catch (NoResultException e) {
-            throw new NotFoundException("line", "line.notFound");
-        } catch (Exception e) {
-            throw new DatabaseException(e);
-        }
+      return lineEntity.convert();
+    } catch (NoResultException e) {
+      throw new NotFoundException("line", "line.notFound");
+    } catch (Exception e) {
+      throw new DatabaseException(e);
     }
-
+  }
 }

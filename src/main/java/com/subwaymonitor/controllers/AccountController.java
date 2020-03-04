@@ -1,6 +1,6 @@
 package com.subwaymonitor.controllers;
 
-import com.subwaymonitor.models.User;
+import com.subwaymonitor.models.UserModel;
 import com.subwaymonitor.presenters.JwtResponse;
 import com.subwaymonitor.presenters.UserPresenter;
 import com.subwaymonitor.services.impl.UserService;
@@ -19,34 +19,37 @@ import javax.validation.Valid;
 @RequestMapping("account")
 public class AccountController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserService userService;
+  private final AuthenticationManager authenticationManager;
+  private final UserService userService;
 
-    @Autowired
-    public AccountController(AuthenticationManager authenticationManager, UserService userService) {
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
-    }
+  @Autowired
+  public AccountController(AuthenticationManager authenticationManager, UserService userService) {
+    this.authenticationManager = authenticationManager;
+    this.userService = userService;
+  }
 
-    @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-            MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
-        User createdUser = this.userService.save(user);
+  @PostMapping(
+      value = "register",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> createUser(@Valid @RequestBody UserModel userModel) {
+    UserModel createdUserModel = this.userService.save(userModel);
 
-        return new ResponseEntity<>(new UserPresenter(createdUser), HttpStatus.CREATED);
-    }
+    return new ResponseEntity<>(new UserPresenter(createdUserModel), HttpStatus.CREATED);
+  }
 
-    @GetMapping(value = "authenticate", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-            MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> authenticate(@Valid @RequestBody User user) throws Exception {
-        this.authenticate(user.getUsername(), user.getPassword());
-        String token = this.userService.generateToken(user.getUsername());
+  @GetMapping(
+      value = "authenticate",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> authenticate(@Valid @RequestBody UserModel userModel) throws Exception {
+    this.authenticate(userModel.getUsername(), userModel.getPassword());
+    String token = this.userService.generateToken(userModel.getUsername());
 
-        return new ResponseEntity<>(new JwtResponse(token), HttpStatus.OK);
-    }
+    return new ResponseEntity<>(new JwtResponse(token), HttpStatus.OK);
+  }
 
-    private void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    }
-
+  private void authenticate(String username, String password) {
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+  }
 }

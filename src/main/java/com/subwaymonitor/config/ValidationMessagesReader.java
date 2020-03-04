@@ -13,36 +13,35 @@ import java.util.Properties;
 @Scope(value = "singleton")
 public class ValidationMessagesReader {
 
-    private Properties properties;
+  private Properties properties;
 
-    public ValidationMessagesReader() {
-        loadValidationMessages();
+  public ValidationMessagesReader() {
+    loadValidationMessages();
+  }
+
+  public Properties getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Properties properties) {
+    this.properties = properties;
+  }
+
+  public String getProperty(String key) {
+    String property = key;
+    if (key != null && this.properties != null && this.properties.containsKey(key)) {
+      property = this.properties.getProperty(key);
     }
+    return property;
+  }
 
-    public Properties getProperties() {
-        return properties;
+  private void loadValidationMessages() {
+    this.properties = new Properties();
+    InputStream in = getClass().getResourceAsStream("/ValidationMessages.properties");
+    try {
+      this.properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
+      in.close();
+    } catch (IOException ignored) {
     }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
-
-    public String getProperty(String key) {
-        String property = key;
-        if (key != null && this.properties != null && this.properties.containsKey(key)) {
-            property = this.properties.getProperty(key);
-        }
-        return property;
-    }
-
-    private void loadValidationMessages() {
-        this.properties = new Properties();
-        InputStream in = getClass().getResourceAsStream("/ValidationMessages.properties");
-        try {
-            this.properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
-            in.close();
-        } catch (IOException ignored) {
-        }
-    }
-
+  }
 }

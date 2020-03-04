@@ -21,44 +21,52 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final UserDetailsService userDetailsService;
-    private final JwtRequestFilter jwtRequestFilter;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  private final UserDetailsService userDetailsService;
+  private final JwtRequestFilter jwtRequestFilter;
 
-    @Autowired
-    public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-                             @Qualifier("UserService") UserDetailsService userDetailsService,
-                             JwtRequestFilter jwtRequestFilter) {
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-        this.userDetailsService = userDetailsService;
-        this.jwtRequestFilter = jwtRequestFilter;
-    }
+  @Autowired
+  public WebSecurityConfig(
+      JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+      @Qualifier("UserService") UserDetailsService userDetailsService,
+      JwtRequestFilter jwtRequestFilter) {
+    this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+    this.userDetailsService = userDetailsService;
+    this.jwtRequestFilter = jwtRequestFilter;
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
+  }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .authorizeRequests().antMatchers("/account/authenticate", "/account/register").permitAll()
-            .anyRequest().authenticated().and()
-            .exceptionHandling().authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers("/account/authenticate", "/account/register")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .exceptionHandling()
+        .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-
+    http.addFilterBefore(this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+  }
 }

@@ -11,18 +11,17 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class SubwayMonitorScheduler {
 
-    private static final long THREE_MINUTES = 180000;
+  private static final long THREE_MINUTES = 180000;
 
-    private final MonitorService monitorService;
+  private final MonitorService monitorService;
 
-    @Autowired
-    public SubwayMonitorScheduler(MonitorService monitorService) {
-        this.monitorService = monitorService;
-    }
+  @Autowired
+  public SubwayMonitorScheduler(MonitorService monitorService) {
+    this.monitorService = monitorService;
+  }
 
-    @Scheduled(fixedRate = THREE_MINUTES)
-    public void monitor() throws NotFoundException, ExecutionException, InterruptedException {
-        this.monitorService.importAndSaveData();
-    }
-
+  @Scheduled(fixedRate = THREE_MINUTES)
+  public void monitor() throws NotFoundException, ExecutionException, InterruptedException {
+    this.monitorService.importAndSaveData();
+  }
 }

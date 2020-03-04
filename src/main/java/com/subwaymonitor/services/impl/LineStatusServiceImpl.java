@@ -13,35 +13,34 @@ import java.util.List;
 @Service
 public class LineStatusServiceImpl implements LineStatusService {
 
-    private final LineStatusRepository repository;
+  private final LineStatusRepository repository;
 
-    public LineStatusServiceImpl(LineStatusRepository repository) {
-        this.repository = repository;
+  public LineStatusServiceImpl(LineStatusRepository repository) {
+    this.repository = repository;
+  }
+
+  @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+  public LineStatus save(LineStatus lineStatus) {
+    return this.repository.save(lineStatus);
+  }
+
+  @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+  public List<LineStatus> listLastVerificatinForAllLines() {
+    Integer lastVerificationNumber = this.findLastVerification();
+
+    return this.repository.listAllLinesByVerificationNumber(lastVerificationNumber);
+  }
+
+  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+  public Integer findLastVerification() {
+    try {
+      return this.repository.findLastVerification();
+    } catch (NotFoundException e) {
+      e.printStackTrace();
     }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public LineStatus save(LineStatus lineStatus) {
-        return this.repository.save(lineStatus);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public List<LineStatus> listLastVerificatinForAllLines() {
-        Integer lastVerificationNumber = this.findLastVerification();
-
-        return this.repository.listAllLinesByVerificationNumber(lastVerificationNumber);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-    public Integer findLastVerification() {
-        try {
-            return this.repository.findLastVerification();
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-        return 1;
-    }
-
+    return 1;
+  }
 }

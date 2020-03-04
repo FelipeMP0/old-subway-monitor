@@ -16,22 +16,21 @@ import java.util.Arrays;
 @Order(3)
 public class UnexpectedExceptionHandler extends DefaultResponseEntityExceptionHandler {
 
-    private final Logger logger;
+  private final Logger logger;
 
-    public UnexpectedExceptionHandler() {
-        this.logger = Logger.getLogger(this.getClass());
-    }
+  public UnexpectedExceptionHandler() {
+    this.logger = Logger.getLogger(this.getClass());
+  }
 
-    @ExceptionHandler(value = {Exception.class})
-    protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
-        this.logger.error(ex);
+  @ExceptionHandler(value = {Exception.class})
+  protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
+    this.logger.error(ex);
 
-        String message = this.getMessageFromPropertiesFile(ex.getMessage());
+    String message = this.getMessageFromPropertiesFile(ex.getMessage());
 
-        ErrorPresenter error = new ErrorPresenter("error", message);
+    ErrorPresenter error = new ErrorPresenter("error", message);
 
-        return super.handleExceptionInternal(ex, Arrays.asList(error), new HttpHeaders(),
-                HttpStatus.INTERNAL_SERVER_ERROR, request);
-    }
-
+    return super.handleExceptionInternal(
+        ex, Arrays.asList(error), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+  }
 }

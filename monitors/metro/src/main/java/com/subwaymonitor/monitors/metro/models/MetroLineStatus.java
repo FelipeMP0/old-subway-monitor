@@ -1,4 +1,4 @@
-package com.subwaymonitor.appcommon.models.metro;
+package com.subwaymonitor.monitors.metro.models;
 
 public class MetroLineStatus {
 

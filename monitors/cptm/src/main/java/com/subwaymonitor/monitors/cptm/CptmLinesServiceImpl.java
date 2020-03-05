@@ -3,7 +3,7 @@ package com.subwaymonitor.monitors.cptm;
 import com.subwaymonitor.appcommon.enums.StatusEnum;
 import com.subwaymonitor.appcommon.models.LineCurrentStatus;
 import com.subwaymonitor.monitors.common.LinesService;
-import com.subwaymonitor.monitors.common.WebDriverHandler;
+import com.subwaymonitor.monitors.common.util.WebDriverHandler;
 import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;

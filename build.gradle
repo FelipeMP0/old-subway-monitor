@@ -1,6 +1,11 @@
+plugins {
+    id 'com.github.sherter.google-java-format' version '0.8'
+}
+
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'com.github.sherter.google-java-format'
 
     group 'com.subwaymonitor'
     version '1.0'
@@ -14,4 +19,6 @@ allprojects {
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
     }
+
+    compileJava.dependsOn "googleJavaFormat"
 }

@@ -4,6 +4,7 @@ import com.subwaymonitor.models.UserModel;
 import com.subwaymonitor.presenters.JwtResponse;
 import com.subwaymonitor.presenters.UserPresenter;
 import com.subwaymonitor.services.impl.UserService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @CrossOrigin
 @RestController

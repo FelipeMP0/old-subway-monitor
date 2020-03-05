@@ -1,3 +1,12 @@
 rootProject.name = 'subway-monitor'
 include 'app'
+include 'metro'
+project(':metro').projectDir = new File('./monitors/metro')
+include 'cptm'
+project(':cptm').projectDir = new File('./monitors/cptm')
+include 'privatecompanies'
+project(':privatecompanies').projectDir = new File('./monitors/privatecompanies')
+include 'common'
+project(':common').projectDir = new File('./monitors/common')
+include 'app-common'
 

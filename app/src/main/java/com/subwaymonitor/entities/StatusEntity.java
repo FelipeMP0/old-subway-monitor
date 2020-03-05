@@ -1,17 +1,15 @@
 package com.subwaymonitor.entities;
 
+import com.subwaymonitor.constants.DatabaseSchemas;
 import com.subwaymonitor.models.Status;
-import org.springframework.util.CollectionUtils;
-
-import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
+import javax.persistence.*;
+import org.springframework.util.CollectionUtils;
 
 @Entity
-@Table(name = "status", catalog = SUBWAY_MONITOR)
+@Table(name = "status", catalog = DatabaseSchemas.SUBWAY_MONITOR)
 public class StatusEntity {
 
   @Id

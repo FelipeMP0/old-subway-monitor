@@ -1,14 +1,13 @@
 package com.subwaymonitor.entities;
 
-import com.subwaymonitor.models.Line;
-import org.springframework.util.CollectionUtils;
+import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
 
-import javax.persistence.*;
+import com.subwaymonitor.models.Line;
 import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
+import javax.persistence.*;
+import org.springframework.util.CollectionUtils;
 
 @Entity
 @Table(name = "line", catalog = SUBWAY_MONITOR)

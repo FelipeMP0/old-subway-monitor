@@ -1,6 +1,8 @@
 package com.subwaymonitor.exceptions.handlers;
 
 import com.subwaymonitor.presenters.ErrorPresenter;
+import java.util.ArrayList;
+import java.util.List;
 import org.jboss.logging.Logger;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -12,9 +14,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Order(1)
 @ControllerAdvice

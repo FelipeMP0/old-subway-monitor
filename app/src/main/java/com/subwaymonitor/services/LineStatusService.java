@@ -1,7 +1,6 @@
 package com.subwaymonitor.services;
 
 import com.subwaymonitor.models.LineStatus;
-
 import java.util.List;
 
 public interface LineStatusService {

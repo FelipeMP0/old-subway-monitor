@@ -1,7 +1,6 @@
 package com.subwaymonitor.entities;
 
 import com.subwaymonitor.models.UserModel;
-
 import javax.persistence.*;
 
 @Entity

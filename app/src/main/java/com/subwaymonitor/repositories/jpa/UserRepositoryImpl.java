@@ -1,13 +1,12 @@
 package com.subwaymonitor.repositories.jpa;
 
+import com.subwaymonitor.appcommon.exceptions.DatabaseException;
 import com.subwaymonitor.entities.UserEntity;
-import com.subwaymonitor.exceptions.DatabaseException;
 import com.subwaymonitor.models.UserModel;
 import com.subwaymonitor.repositories.UserRepository;
-import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {

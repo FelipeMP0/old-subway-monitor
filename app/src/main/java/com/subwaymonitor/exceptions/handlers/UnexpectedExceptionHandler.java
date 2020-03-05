@@ -1,6 +1,7 @@
 package com.subwaymonitor.exceptions.handlers;
 
 import com.subwaymonitor.presenters.ErrorPresenter;
+import java.util.Arrays;
 import org.jboss.logging.Logger;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -9,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.Arrays;
 
 @ControllerAdvice
 @Order(3)

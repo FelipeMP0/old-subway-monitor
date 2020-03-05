@@ -1,14 +1,12 @@
 package com.subwaymonitor.entities;
 
+import com.subwaymonitor.constants.DatabaseSchemas;
 import com.subwaymonitor.models.LineStatus;
-
-import javax.persistence.*;
 import java.time.ZonedDateTime;
-
-import static com.subwaymonitor.constants.DatabaseSchemas.SUBWAY_MONITOR;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "line_status", catalog = SUBWAY_MONITOR)
+@Table(name = "line_status", catalog = DatabaseSchemas.SUBWAY_MONITOR)
 public class LineStatusEntity {
 
   @Id

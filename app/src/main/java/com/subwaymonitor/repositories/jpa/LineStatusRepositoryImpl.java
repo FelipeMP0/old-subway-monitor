@@ -1,18 +1,17 @@
 package com.subwaymonitor.repositories.jpa;
 
+import com.subwaymonitor.appcommon.exceptions.DatabaseException;
 import com.subwaymonitor.entities.LineStatusEntity;
-import com.subwaymonitor.exceptions.DatabaseException;
 import com.subwaymonitor.exceptions.NotFoundException;
 import com.subwaymonitor.models.LineStatus;
 import com.subwaymonitor.repositories.LineStatusRepository;
-import org.springframework.stereotype.Repository;
-
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class LineStatusRepositoryImpl implements LineStatusRepository {
@@ -46,7 +45,8 @@ public class LineStatusRepositoryImpl implements LineStatusRepository {
               .setParameter("verificationNumber", verificationNumber)
               .getResultList();
 
-      return lineStatusEntities.stream()
+      return lineStatusEntities
+          .stream()
           .map(LineStatusEntity::convert)
           .collect(Collectors.toList());
     } catch (Exception e) {

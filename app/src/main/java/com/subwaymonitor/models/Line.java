@@ -1,11 +1,8 @@
 package com.subwaymonitor.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Line {
 
   private Integer id;

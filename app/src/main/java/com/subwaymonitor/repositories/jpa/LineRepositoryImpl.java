@@ -1,15 +1,14 @@
 package com.subwaymonitor.repositories.jpa;
 
+import com.subwaymonitor.appcommon.exceptions.DatabaseException;
 import com.subwaymonitor.entities.LineEntity;
-import com.subwaymonitor.exceptions.DatabaseException;
 import com.subwaymonitor.exceptions.NotFoundException;
 import com.subwaymonitor.models.Line;
 import com.subwaymonitor.repositories.LineRepository;
-import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class LineRepositoryImpl implements LineRepository {

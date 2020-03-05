@@ -4,6 +4,7 @@ import com.subwaymonitor.config.security.JwtTokenUtil;
 import com.subwaymonitor.models.UserModel;
 import com.subwaymonitor.repositories.UserRepository;
 import com.subwaymonitor.utils.EncryptionUtil;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.User;
@@ -13,8 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 
 @Service
 @Qualifier("UserService")

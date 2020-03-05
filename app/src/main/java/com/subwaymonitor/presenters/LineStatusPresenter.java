@@ -1,7 +1,6 @@
 package com.subwaymonitor.presenters;
 
 import com.subwaymonitor.models.LineStatus;
-
 import java.time.ZonedDateTime;
 
 public class LineStatusPresenter {

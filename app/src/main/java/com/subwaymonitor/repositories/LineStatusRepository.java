@@ -2,7 +2,6 @@ package com.subwaymonitor.repositories;
 
 import com.subwaymonitor.exceptions.NotFoundException;
 import com.subwaymonitor.models.LineStatus;
-
 import java.util.List;
 
 public interface LineStatusRepository {

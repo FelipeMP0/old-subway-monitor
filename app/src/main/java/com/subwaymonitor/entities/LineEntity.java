@@ -57,9 +57,8 @@ public class LineEntity {
   }
 
   public Line convert() {
-    Line line = new Line();
+    Line line = new Line(this.id);
 
-    line.setId(this.id);
     line.setNumber(this.number);
     line.setName(this.name);
     line.setCompany(this.company.convert());

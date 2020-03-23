@@ -1,6 +1,7 @@
 src/main/java/com/subwaymonitor/appcommon/models/metro/StatusMetro.java,1583381293206877000,357,FORMATTED
 src/main/java/com/subwaymonitor/appcommon/models/metro/MetroLinesStatusResponse.java,1583381293436857000,295,FORMATTED
 src/main/java/com/subwaymonitor/appcommon/util/WebDriverHandler.java,1584924539605960000,790,FORMATTED
+src/main/java/com/subwaymonitor/appcommon/config/MetroConfigProperties.java,1584925180086907000,465,FORMATTED
 src/main/java/com/subwaymonitor/appcommon/models/metro/MetroLineStatus.java,1583381293356864000,1176,FORMATTED
 src/main/java/com/subwaymonitor/appcommon/exceptions/DatabaseException.java,1583381293286870000,292,FORMATTED
 src/main/java/com/subwaymonitor/appcommon/services/LinesService.java,1584924574034855000,209,FORMATTED

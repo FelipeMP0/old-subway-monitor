@@ -2,6 +2,7 @@ package com.subwaymonitor.services.impl;
 
 import com.subwaymonitor.appcommon.models.LineCurrentStatus;
 import com.subwaymonitor.appcommon.services.LinesService;
+import com.subwaymonitor.exceptions.NotFoundException;
 import com.subwaymonitor.models.Line;
 import com.subwaymonitor.models.LineStatus;
 import com.subwaymonitor.models.LineStatus.Builder;
@@ -34,21 +35,22 @@ public class MonitorService {
     this.statusRepository = statusRepository;
   }
 
-  public void importAndSaveData() {
+  public void importAndSaveData() throws NotFoundException {
     List<LineCurrentStatus> metroStatuses = this.metroLinesService.findStatuses();
 
     Integer lastVerification = this.lineStatusService.findLastVerification();
 
-    metroStatuses.forEach(
-        lineCurrentStatus -> {
-          LineStatus lineStatus =
-              new Builder()
-                  .line(new Line())
-                  .status(new Status())
-                  .verificationNumber(lastVerification)
-                  .build();
+    for (LineCurrentStatus lineCurrentStatus : metroStatuses) {
+      Status status = this.statusRepository.findBySlug(lineCurrentStatus.getStatus());
 
-          this.lineStatusService.save(lineStatus);
-        });
+      LineStatus lineStatus =
+          new Builder()
+              .line(new Line(lineCurrentStatus.getLineNumber()))
+              .status(status)
+              .verificationNumber(lastVerification)
+              .build();
+
+      this.lineStatusService.save(lineStatus);
+    }
   }
 }

@@ -2,8 +2,17 @@ package com.subwaymonitor.entities;
 
 import com.subwaymonitor.constants.DatabaseSchemas;
 import com.subwaymonitor.models.LineStatus;
+import com.subwaymonitor.models.LineStatus.Builder;
 import java.time.ZonedDateTime;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "line_status", catalog = DatabaseSchemas.SUBWAY_MONITOR)
@@ -52,23 +61,21 @@ public class LineStatusEntity {
   }
 
   public LineStatus convert() {
-    LineStatus lineStatus = new LineStatus();
-
-    lineStatus.setId(this.id);
+    Builder builder = new Builder().id(this.id);
 
     if (this.line != null) {
-      lineStatus.setLine(this.line.convert());
+      builder.line(this.line.convert());
     }
 
     if (this.status != null) {
-      lineStatus.setStatus(this.status.convert());
+      builder.status(this.status.convert());
     }
 
-    lineStatus.setVerificationNumber(this.verificationNumber);
-    lineStatus.setCreationDate(this.creationDate);
-    lineStatus.setUpdateDate(this.updateDate);
+    builder.verificationNumber(this.verificationNumber);
+    builder.creationDate(this.creationDate);
+    builder.updateDate(this.updateDate);
 
-    return lineStatus;
+    return builder.build();
   }
 
   public Integer getId() {

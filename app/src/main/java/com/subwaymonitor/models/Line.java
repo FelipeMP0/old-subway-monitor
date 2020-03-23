@@ -19,9 +19,14 @@ public class Line {
 
   private ZonedDateTime updateDate;
 
-  public Line() {
+  private Line() {
     this.creationDate = ZonedDateTime.now();
     this.updateDate = ZonedDateTime.now();
+  }
+
+  public Line(Integer id) {
+    this();
+    this.id = id;
   }
 
   public Integer getId() {

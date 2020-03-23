@@ -38,7 +38,7 @@ public class LineStatusServiceImpl implements LineStatusService {
     try {
       return this.repository.findLastVerification();
     } catch (NotFoundException e) {
-      e.printStackTrace();
+
     }
     return 1;
   }

@@ -4,8 +4,7 @@ import java.time.ZonedDateTime;
 
 public class LineStatus {
 
-  private LineStatus() {
-  }
+  private LineStatus() {}
 
   private Integer id;
 
@@ -29,13 +28,19 @@ public class LineStatus {
 
     private Integer verificationNumber = 1;
 
-    private final ZonedDateTime creationDate;
+    private ZonedDateTime creationDate;
 
-    private final ZonedDateTime updateDate;
+    private ZonedDateTime updateDate;
 
     public Builder() {
       this.creationDate = ZonedDateTime.now();
       this.updateDate = ZonedDateTime.now();
+    }
+
+    public Builder id(Integer id) {
+      this.id = id;
+
+      return this;
     }
 
     public Builder line(Line line) {
@@ -52,6 +57,18 @@ public class LineStatus {
 
     public Builder verificationNumber(Integer verificationNumber) {
       this.verificationNumber = verificationNumber;
+
+      return this;
+    }
+
+    public Builder creationDate(ZonedDateTime creationDate) {
+      this.creationDate = creationDate;
+
+      return this;
+    }
+
+    public Builder updateDate(ZonedDateTime updateDate) {
+      this.updateDate = updateDate;
 
       return this;
     }

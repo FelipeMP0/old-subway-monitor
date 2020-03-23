@@ -1,5 +1,6 @@
 package com.subwaymonitor.schedulers;
 
+import com.subwaymonitor.exceptions.NotFoundException;
 import com.subwaymonitor.services.impl.MonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,7 +19,7 @@ public class SubwayMonitorScheduler {
   }
 
   @Scheduled(fixedRate = THREE_MINUTES)
-  public void monitor() {
+  public void monitor() throws NotFoundException {
     this.monitorService.importAndSaveData();
   }
 }

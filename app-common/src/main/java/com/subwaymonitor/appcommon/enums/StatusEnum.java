@@ -7,9 +7,12 @@ public enum StatusEnum {
   SLOW(new String[] {"Velocidade Reduzida"}),
   INTERRUPTED(new String[] {"Operação Interrompida"}),
   PARTIAL(new String[] {"Operação Parcial"}),
-  FINISHED(new String[] {"Operação Encerrada", "Operações Encerradas"});
+  FINISHED(new String[] {"Operação Encerrada", "Operações Encerradas"}),
+  UNKNOWN();
 
   private String[] text;
+
+  StatusEnum() {}
 
   StatusEnum(String[] text) {
     this.text = text;
@@ -18,16 +21,10 @@ public enum StatusEnum {
   public static StatusEnum fromText(String value) {
     return Arrays.stream(StatusEnum.values())
         .filter(
-            statusEnum -> {
-              for (String text : statusEnum.getText()) {
-                if (text.equalsIgnoreCase(value)) {
-                  return true;
-                }
-              }
-              return false;
-            })
+            statusEnum ->
+                Arrays.stream(statusEnum.getText()).anyMatch(text -> text.equalsIgnoreCase(value)))
         .findFirst()
-        .orElse(NORMAL);
+        .orElse(UNKNOWN);
   }
 
   public String[] getText() {

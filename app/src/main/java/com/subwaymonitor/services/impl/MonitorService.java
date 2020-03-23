@@ -1,5 +1,6 @@
 package com.subwaymonitor.services.impl;
 
+import com.subwaymonitor.appcommon.enums.StatusEnum;
 import com.subwaymonitor.appcommon.models.LineCurrentStatus;
 import com.subwaymonitor.appcommon.services.LinesService;
 import com.subwaymonitor.exceptions.NotFoundException;
@@ -11,12 +12,15 @@ import com.subwaymonitor.repositories.LineRepository;
 import com.subwaymonitor.repositories.StatusRepository;
 import com.subwaymonitor.services.LineStatusService;
 import java.util.List;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MonitorService {
+
+  private final Logger logger;
 
   private LinesService metroLinesService;
   private LineStatusService lineStatusService;
@@ -33,6 +37,7 @@ public class MonitorService {
     this.lineStatusService = lineStatusService;
     this.lineRepository = lineRepository;
     this.statusRepository = statusRepository;
+    this.logger = Logger.getLogger(this.getClass());
   }
 
   public void importAndSaveData() throws NotFoundException {
@@ -41,7 +46,13 @@ public class MonitorService {
     Integer lastVerification = this.lineStatusService.findLastVerification();
 
     for (LineCurrentStatus lineCurrentStatus : metroStatuses) {
-      Status status = this.statusRepository.findBySlug(lineCurrentStatus.getStatus());
+      StatusEnum currentStatus = StatusEnum.fromText(lineCurrentStatus.getStatus());
+
+      if (currentStatus.equals(StatusEnum.UNKNOWN)) {
+        this.logger.warn("Unknown status received: " + lineCurrentStatus.getStatus());
+      }
+
+      Status status = this.statusRepository.findBySlug(currentStatus.name());
 
       LineStatus lineStatus =
           new Builder()

@@ -11,9 +11,9 @@ src/main/java/com/subwaymonitor/entities/CompanyEntity.java,1583383743279628000,
 src/main/java/com/subwaymonitor/presenters/LinePresenter.java,1583382980148115000,623,FORMATTED
 src/main/java/com/subwaymonitor/services/LineStatusService.java,1583383743169625000,276,FORMATTED
 src/main/java/com/subwaymonitor/Application.java,1583380679443476000,1158,FORMATTED
-src/main/java/com/subwaymonitor/repositories/jpa/StatusRepositoryImpl.java,1583383743129625000,1174,FORMATTED
+src/main/java/com/subwaymonitor/repositories/jpa/StatusRepositoryImpl.java,1584988242557039000,1174,FORMATTED
 src/main/java/com/subwaymonitor/repositories/jpa/LineRepositoryImpl.java,1583383743129625000,1198,FORMATTED
-src/main/java/com/subwaymonitor/services/impl/MonitorService.java,1584983883380407000,2047,FORMATTED
+src/main/java/com/subwaymonitor/services/impl/MonitorService.java,1584988831332916000,2445,FORMATTED
 src/main/java/com/subwaymonitor/presenters/ErrorPresenter.java,1583382980168115000,343,FORMATTED
 src/main/java/com/subwaymonitor/controllers/LineStatusController.java,1583383742999622000,1277,FORMATTED
 src/main/java/com/subwaymonitor/repositories/UserRepository.java,1583380679203463000,207,FORMATTED

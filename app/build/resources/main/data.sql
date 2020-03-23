@@ -48,3 +48,6 @@ VALUES ('PARTIAL', 'Operação Parcial', current_timestamp(), current_timestamp(
 
 INSERT INTO subway_monitor.status (slug, name, creation_date, update_date)
 VALUES ('FINISHED', 'Operação Encerrada', current_timestamp(), current_timestamp());
+
+INSERT INTO subway_monitor.status (slug, name, creation_date, update_date)
+VALUES ('UNKNOWN', 'Estado desconhecido', current_timestamp(), current_timestamp());

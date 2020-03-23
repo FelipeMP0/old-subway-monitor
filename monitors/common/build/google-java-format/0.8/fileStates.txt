@@ -1,2 +1,0 @@
-src/main/java/com/subwaymonitor/monitors/common/WebDriverHandler.java,1583381826949056000,791,FORMATTED
-src/main/java/com/subwaymonitor/monitors/common/LinesService.java,1583383742859619000,206,FORMATTED

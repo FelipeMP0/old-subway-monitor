@@ -1,4 +1,4 @@
-package com.subwaymonitor.monitors.common;
+package com.subwaymonitor.appcommon.services;
 
 import com.subwaymonitor.appcommon.models.LineCurrentStatus;
 import java.util.List;

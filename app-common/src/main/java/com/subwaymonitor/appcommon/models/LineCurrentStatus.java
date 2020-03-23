@@ -15,15 +15,7 @@ public class LineCurrentStatus {
     return lineNumber;
   }
 
-  public void setLineNumber(Integer lineNumber) {
-    this.lineNumber = lineNumber;
-  }
-
   public String getStatus() {
     return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
   }
 }

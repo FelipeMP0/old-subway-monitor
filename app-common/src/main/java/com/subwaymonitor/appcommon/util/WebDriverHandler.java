@@ -1,4 +1,4 @@
-package com.subwaymonitor.monitors.common.util;
+package com.subwaymonitor.appcommon.util;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

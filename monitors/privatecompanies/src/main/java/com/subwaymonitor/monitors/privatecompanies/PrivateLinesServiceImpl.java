@@ -2,8 +2,8 @@ package com.subwaymonitor.monitors.privatecompanies;
 
 import com.subwaymonitor.appcommon.enums.StatusEnum;
 import com.subwaymonitor.appcommon.models.LineCurrentStatus;
-import com.subwaymonitor.monitors.common.LinesService;
-import com.subwaymonitor.monitors.common.util.WebDriverHandler;
+import com.subwaymonitor.appcommon.services.LinesService;
+import com.subwaymonitor.appcommon.util.WebDriverHandler;
 import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;

@@ -4,6 +4,9 @@ import java.time.ZonedDateTime;
 
 public class LineStatus {
 
+  private LineStatus() {
+  }
+
   private Integer id;
 
   private Line line;
@@ -16,63 +19,78 @@ public class LineStatus {
 
   private ZonedDateTime updateDate;
 
-  public LineStatus() {
-    this.creationDate = ZonedDateTime.now();
-    this.updateDate = ZonedDateTime.now();
-  }
+  public static class Builder {
 
-  public LineStatus(Line line, Status status) {
-    this();
+    private Integer id;
 
-    this.line = line;
-    this.status = status;
+    private Line line;
+
+    private Status status;
+
+    private Integer verificationNumber = 1;
+
+    private final ZonedDateTime creationDate;
+
+    private final ZonedDateTime updateDate;
+
+    public Builder() {
+      this.creationDate = ZonedDateTime.now();
+      this.updateDate = ZonedDateTime.now();
+    }
+
+    public Builder line(Line line) {
+      this.line = line;
+
+      return this;
+    }
+
+    public Builder status(Status status) {
+      this.status = status;
+
+      return this;
+    }
+
+    public Builder verificationNumber(Integer verificationNumber) {
+      this.verificationNumber = verificationNumber;
+
+      return this;
+    }
+
+    public LineStatus build() {
+      LineStatus lineStatus = new LineStatus();
+
+      lineStatus.id = this.id;
+      lineStatus.line = this.line;
+      lineStatus.status = this.status;
+      lineStatus.verificationNumber = this.verificationNumber;
+      lineStatus.creationDate = this.creationDate;
+      lineStatus.updateDate = this.updateDate;
+
+      return lineStatus;
+    }
   }
 
   public Integer getId() {
     return id;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public Line getLine() {
     return line;
-  }
-
-  public void setLine(Line line) {
-    this.line = line;
   }
 
   public Status getStatus() {
     return status;
   }
 
-  public void setStatus(Status status) {
-    this.status = status;
-  }
-
   public Integer getVerificationNumber() {
     return verificationNumber;
-  }
-
-  public void setVerificationNumber(Integer verificationNumber) {
-    this.verificationNumber = verificationNumber;
   }
 
   public ZonedDateTime getCreationDate() {
     return creationDate;
   }
 
-  public void setCreationDate(ZonedDateTime creationDate) {
-    this.creationDate = creationDate;
-  }
-
   public ZonedDateTime getUpdateDate() {
     return updateDate;
-  }
-
-  public void setUpdateDate(ZonedDateTime updateDate) {
-    this.updateDate = updateDate;
   }
 }

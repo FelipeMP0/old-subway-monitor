@@ -1,4 +1,0 @@
-dependencies {
-    implementation project(":app-common")
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-}

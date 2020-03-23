@@ -1,4 +1,4 @@
-package com.subwaymonitor.config.properties;
+package com.subwaymonitor.appcommon.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

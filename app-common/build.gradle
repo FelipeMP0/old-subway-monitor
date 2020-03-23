@@ -1,2 +1,7 @@
+plugins {
+    id 'java-library'
+}
+
 dependencies {
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 }

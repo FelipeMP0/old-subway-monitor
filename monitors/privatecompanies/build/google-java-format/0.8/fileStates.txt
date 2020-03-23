@@ -1,1 +1,1 @@
-src/main/java/com/subwaymonitor/monitors/privatecompanies/PrivateLinesServiceImpl.java,1583383742939621000,2517,FORMATTED
+src/main/java/com/subwaymonitor/monitors/privatecompanies/PrivateLinesServiceImpl.java,1584924574104853000,2519,FORMATTED

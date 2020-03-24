@@ -37,7 +37,7 @@ public class AccountController {
     return new ResponseEntity<>(new UserPresenter(createdUserModel), HttpStatus.CREATED);
   }
 
-  @GetMapping(
+  @PostMapping(
       value = "authenticate",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)

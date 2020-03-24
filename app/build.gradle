@@ -6,6 +6,8 @@ plugins {
 dependencies {
     implementation project(':app-common')
     implementation project(':metro')
+    implementation project(':cptm')
+    implementation project(':privatecompanies')
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.2.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.2.5.RELEASE'
